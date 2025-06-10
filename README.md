@@ -17,6 +17,8 @@ This bot requires **Node.js 18** or later.
    sudo apt-get install open-jtalk open-jtalk-mecab-naist-jdic \
        open-jtalk-hts-voice-mei
    ```
+
+
 2. Prepare a `.env` file with the following variables:
    ```
    BOT_TOKEN=<your bot token>
