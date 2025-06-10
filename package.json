@@ -18,5 +18,8 @@
     "node-cron": "...",
     "node-fetch": "...",
     "rss-parser": "..."
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

@@ -2,6 +2,8 @@
 
 A Discord bot that reads news articles aloud in voice channels.
 
+Requires **Node.js 18** or later.
+
 ## Setup
 
 1. Install dependencies:
