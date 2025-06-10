@@ -7,16 +7,19 @@
     "deploy-commands": "node deploy-commands.js"
   },
   "dependencies": {
-    "@discordjs/builders": "...",
-    "@discordjs/rest": "...",
-    "@discordjs/voice": "...",
-    "axios": "...",
-    "discord-api-types": "...",
-    "discord.js": "...",
-    "dotenv": "file:...",
-    "ioredis": "...",
-    "node-cron": "...",
-    "node-fetch": "...",
-    "rss-parser": "..."
+    "@discordjs/builders": "^1.11.2",
+    "@discordjs/rest": "^2.5.0",
+    "@discordjs/voice": "^0.18.0",
+    "axios": "^1.6.7",
+    "discord-api-types": "^0.38.11",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "ioredis": "^5.6.1",
+    "node-cron": "^4.1.0",
+    "node-fetch": "^3.3.2",
+    "rss-parser": "^3.13.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
