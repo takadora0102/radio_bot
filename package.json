@@ -13,7 +13,7 @@
     "axios": "...",
     "discord-api-types": "...",
     "discord.js": "...",
-    "dotenv": "file:...",
+    "dotenv": "^16.3.1",
     "ioredis": "...",
     "node-cron": "...",
     "node-fetch": "...",

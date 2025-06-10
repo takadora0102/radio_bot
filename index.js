@@ -27,7 +27,7 @@ fs.readdirSync(commandsPath)
 
 // スラッシュコマンド実行時の処理
 client.on('interactionCreate', async interaction => {
-  if (!interaction.isCommand()) return;
+  if (!interaction.isChatInputCommand()) return;
   const command = client.commands.get(interaction.commandName);
   if (!command) return;
 
