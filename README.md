@@ -2,13 +2,14 @@
 
 A Discord bot that reads news articles aloud in voice channels.
 
-Requires **Node.js 18** or later.
+This bot requires **Node.js 18** or later.
 ## Setup
 
 1. Install dependencies:
    ```sh
    npm install
    ```
+   This installs all npm packages, including the **dotenv** module.
 
    If you plan to use the built-in text-to-speech feature, install the
    following packages (for Debian/Ubuntu):
