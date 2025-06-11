@@ -29,12 +29,15 @@ This bot requires **Node.js 18** or later.
    NEWSAPI_DAILY_LIMIT=100
    GNEWS_DAILY_LIMIT=100
    NEWSAPI_THRESHOLD=10
-   QUEUE_MAX=5
-  # Redis connection URL (defaults to redis://localhost:6379 if omitted)
-  REDIS_URL=redis://localhost:6379
-   VOICE_SPEED=1.0
-   VOICE_VOLUME=100
-   ```
+  QUEUE_MAX=5
+ # Redis connection URL (defaults to redis://localhost:6379 if omitted)
+ REDIS_URL=redis://localhost:6379
+  VOICE_SPEED=1.0
+  VOICE_VOLUME=100
+  ```
+
+  `REDIS_URL` を空文字にすると ioredis が `/` に接続しようとして
+  `EACCES` エラーになるため、未設定にするか正しい URL を指定してください。
 
 3. Deploy slash commands:
    ```sh
