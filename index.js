@@ -46,3 +46,14 @@ client.once('ready', () => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
+// Some hosting providers like Render require an open HTTP port even for bots.
+// Create a minimal server so the process binds to `process.env.PORT`.
+const http = require('http');
+const port = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('OK');
+}).listen(port, () => {
+  console.log(`HTTP server listening on port ${port}`);
+});
