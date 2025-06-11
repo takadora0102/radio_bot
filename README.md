@@ -30,7 +30,8 @@ This bot requires **Node.js 18** or later.
    GNEWS_DAILY_LIMIT=100
    NEWSAPI_THRESHOLD=10
    QUEUE_MAX=5
-   REDIS_URL=redis://localhost:6379
+  # Redis connection URL (defaults to redis://localhost:6379 if omitted)
+  REDIS_URL=redis://localhost:6379
    VOICE_SPEED=1.0
    VOICE_VOLUME=100
    ```
