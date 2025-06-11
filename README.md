@@ -28,16 +28,22 @@ This bot requires **Node.js 18** or later.
    GNEWS_KEY=<GNews key>
    NEWSAPI_DAILY_LIMIT=100
    GNEWS_DAILY_LIMIT=100
-   NEWSAPI_THRESHOLD=10
+  NEWSAPI_THRESHOLD=10
   QUEUE_MAX=5
- # Redis connection URL (defaults to redis://localhost:6379 if omitted)
- REDIS_URL=redis://localhost:6379
+  # Redis connection URL (defaults to redis://localhost:6379 if omitted)
+  REDIS_URL=redis://localhost:6379
+  # Port for the built-in HTTP server (used on hosting platforms like Render)
+  PORT=3000
   VOICE_SPEED=1.0
   VOICE_VOLUME=100
   ```
 
-  `REDIS_URL` を空文字にすると ioredis が `/` に接続しようとして
-  `EACCES` エラーになるため、未設定にするか正しい URL を指定してください。
+`REDIS_URL` を空文字にすると ioredis が `/` に接続しようとして
+`EACCES` エラーになるため、未設定にするか正しい URL を指定してください。
+
+`PORT` は Render などポート監視を行うホスティング環境向けです。HTTP サー
+ビスが不要な場合はサービスを Worker として構成するか、適当なポート番号を
+指定しておきます。
 
 3. Deploy slash commands:
    ```sh
