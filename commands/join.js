@@ -1,7 +1,8 @@
 // commands/join.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ChannelType } = require('discord.js');
-const { joinVoiceChannel, entersState, VoiceConnectionStatus } = require('@discordjs/voice');
+// この行を削除 RRR
+// const { joinVoiceChannel, entersState, VoiceConnectionStatus } = require('@discordjs/voice');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -9,6 +10,9 @@ module.exports = {
     .setDescription('ステージチャンネルに接続し、読み上げを開始します。'),
 
   async execute(interaction) {
+    // ↓↓↓ この行を関数の内部に追加
+    const { joinVoiceChannel, entersState, VoiceConnectionStatus } = require('@discordjs/voice');
+
     if (!interaction.guild) {
       return interaction.reply({ content: 'サーバー内で実行してください。', ephemeral: true });
     }

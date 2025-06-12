@@ -1,6 +1,7 @@
 // commands/leave.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getVoiceConnection } = require('@discordjs/voice');
+// この行を削除 RRR
+// const { getVoiceConnection } = require('@discordjs/voice');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,6 +9,9 @@ module.exports = {
     .setDescription('ステージチャンネルから切断し、読み上げを停止します。'),
 
   async execute(interaction) {
+    // ↓↓↓ この行を関数の内部に追加
+    const { getVoiceConnection } = require('@discordjs/voice');
+
     if (!interaction.guild) {
       return interaction.reply({ content: 'サーバー内で実行してください。', ephemeral: true });
     }
