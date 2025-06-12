@@ -1,7 +1,6 @@
 // commands/speed.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../lib/config');
-const { set } = require('../lib/storage');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,6 +12,8 @@ module.exports = {
          .setRequired(true)
     ),
   async execute(interaction) {
+    const { set } = require('../lib/storage');
+
     const val = interaction.options.getNumber('value');
     if (val < 0.5 || val > 2.0) {
       return interaction.reply({ content: '0.5～2.0 の範囲で指定してください。', ephemeral: true });

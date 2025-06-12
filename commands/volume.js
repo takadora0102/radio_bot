@@ -1,7 +1,7 @@
 // commands/volume.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../lib/config');
-const { set } = require('../lib/storage');
+// const { set } = require('../lib/storage'); // ← この行を削除
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,6 +13,8 @@ module.exports = {
          .setRequired(true)
     ),
   async execute(interaction) {
+    const { set } = require('../lib/storage'); // ← execute関数の内部に移動
+
     const val = interaction.options.getInteger('value');
     if (val < 0 || val > 100) {
       return interaction.reply({ content: '0～100 の範囲で指定してください。', ephemeral: true });
