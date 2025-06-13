@@ -1,13 +1,21 @@
 # ベースとなる公式Node.jsイメージを選択
 FROM node:18-slim
 
-# Open JTalkと関連パッケージをインストールする
-# m100という女性音声をインストール
+# Open JTalk本体と、音声ファイル取得に必要なツールをインストール
 RUN apt-get update && apt-get install -y --no-install-recommends \
     open-jtalk \
     open-jtalk-mecab-naist-jdic \
-    hts-voice-m100-jp \
+    wget \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
+
+# MMDAgentのサンプルから「メイ」の音声ファイルを直接ダウンロードして配置
+RUN cd /usr/share && \
+    wget -O MMDAgent_Example.zip "https://ja.osdn.net/projects/mmdagent/downloads/65 MMDAgent_Example-1.8.zip" && \
+    unzip MMDAgent_Example.zip && \
+    mkdir -p hts-voice/mei && \
+    mv MMDAgent_Example-1.8/Voice/mei/mei_normal.htsvoice hts-voice/mei/ && \
+    rm -rf MMDAgent_Example.zip MMDAgent_Example-1.8
 
 # コンテナ内の作業ディレクトリを設定
 WORKDIR /usr/src/app
