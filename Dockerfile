@@ -1,28 +1,28 @@
-# Dockerfile
-# ベースイメージとして Node.js 18 を指定
+# ベースとなる公式Node.jsイメージを選択
 FROM node:18-slim
 
-# open-jtalk と依存パッケージをインストール
-# apt-get の警告を抑制するために DEBIAN_FRONTEND を noninteractive に設定
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+# Open JTalkと関連パッケージをインストールする
+# m100という女性音声をインストール
+RUN apt-get update && apt-get install -y --no-install-recommends \
     open-jtalk \
     open-jtalk-mecab-naist-jdic \
-    open-jtalk-hts-voice-mei && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    hts-voice-m100-jp \
+    && rm -rf /var/lib/apt/lists/*
 
-# アプリケーションディレクトリを作成
+# コンテナ内の作業ディレクトリを設定
 WORKDIR /usr/src/app
 
-# アプリケーションの依存関係をインストール
-# package.json と package-lock.json をコピーして、キャッシュを有効活用する
+# 依存関係のファイルを先にコピー
 COPY package*.json ./
-RUN npm install --omit=dev
+
+# 本番環境に必要なパッケージのみインストール
+RUN npm install --production
 
 # アプリケーションのソースコードをコピー
 COPY . .
 
-# アプリケーションの起動コマンド
-CMD [ "npm", "start" ]
+# Renderが接続するポートを公開
+EXPOSE 10000
+
+# アプリケーションを起動するコマンド
+CMD [ "node", "index.js" ]
