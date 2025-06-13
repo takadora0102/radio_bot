@@ -1,7 +1,9 @@
-# ベースとなる公式Node.jsイメージを選択
+# ベースイメージとしてNode.js 18のslimバージョンを使用
 FROM node:18-slim
 
-# Open JTalk本体と、音声ファイル取得に必要なツールをインストール
+# aptパッケージリストを更新し、必要なパッケージをインストール
+# open-jtalkとその辞書、wget、unzipをインストール
+# インストール後にaptキャッシュをクリーンアップ
 RUN apt-get update && apt-get install -y --no-install-recommends \
     open-jtalk \
     open-jtalk-mecab-naist-jdic \
@@ -9,28 +11,34 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
+# /usr/shareディレクトリに移動
+WORKDIR /usr/share
+
 # MMDAgentのサンプルから「メイ」の音声ファイルを直接ダウンロードして配置
+# --no-check-certificate を追加してSSL証明書のエラーを回避
 RUN cd /usr/share && \
-    wget -O MMDAgent_Example.zip "https://ja.osdn.net/projects/mmdagent/downloads/65281/MMDAgent_Example-1.8.zip" && \
+    wget --no-check-certificate -O MMDAgent_Example.zip "https://ja.osdn.net/projects/mmdagent/downloads/65281/MMDAgent_Example-1.8.zip" && \
     unzip MMDAgent_Example.zip && \
     mkdir -p hts-voice/mei && \
     mv MMDAgent_Example-1.8/Voice/mei/mei_normal.htsvoice hts-voice/mei/ && \
     rm -rf MMDAgent_Example.zip MMDAgent_Example-1.8
 
-# コンテナ内の作業ディレクトリを設定
-WORKDIR /usr/src/app
+# アプリケーションの作業ディレクトリを作成
+WORKDIR /app
 
-# 依存関係のファイルを先にコピー
+# package.jsonとpackage-lock.jsonをコピー
 COPY package*.json ./
 
-# 本番環境に必要なパッケージのみインストール
-RUN npm install --production
+# 依存関係をインストール
+# 本番環境の依存関係のみをインストール
+RUN npm install --omit=dev
 
 # アプリケーションのソースコードをコピー
 COPY . .
 
-# Renderが接続するポートを公開
-EXPOSE 10000
+# ポート3000を公開
+EXPOSE 3000
 
-# アプリケーションを起動するコマンド
-CMD [ "node", "index.js" ]
+# アプリケーションを起動
+# botディレクトリ内のindex.jsを実行
+CMD ["node", "bot/index.js"]
