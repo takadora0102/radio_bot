@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # MMDAgentのサンプルから「メイ」の音声ファイルを直接ダウンロードして配置
 RUN cd /usr/share && \
-    wget -O MMDAgent_Example.zip "https://ja.osdn.net/projects/mmdagent/downloads/65 MMDAgent_Example-1.8.zip" && \
+    wget -O MMDAgent_Example.zip "https://ja.osdn.net/projects/mmdagent/downloads/65281/MMDAgent_Example-1.8.zip" && \
     unzip MMDAgent_Example.zip && \
     mkdir -p hts-voice/mei && \
     mv MMDAgent_Example-1.8/Voice/mei/mei_normal.htsvoice hts-voice/mei/ && \
