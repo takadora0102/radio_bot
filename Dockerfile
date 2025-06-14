@@ -17,7 +17,10 @@ WORKDIR /usr/share
 # MMDAgentのサンプルから「メイ」の音声ファイルを直接ダウンロードして配置
 # --no-check-certificate を追加してSSL証明書のエラーを回避
 RUN mkdir -p /usr/share/hts-voice/tohoku-f01 && \
-    wget --no-check-certificate -O /usr/share/hts-voice/tohoku-f01/neutral.htsvoice "https://github.com/icn-lab/htsvoice-tohoku-f01/raw/master/htsvoice/tohoku-f01-neutral/tohoku-f01-neutral.htsvoice"
+    wget --no-check-certificate -O htsvoice-tohoku-f01.zip "https://github.com/icn-lab/htsvoice-tohoku-f01/releases/download/v1.1.0/htsvoice-tohoku-f01-v1.1.0.zip" && \
+    unzip htsvoice-tohoku-f01.zip && \
+    mv htsvoice-tohoku-f01-v1.1.0/htsvoice/tohoku-f01-neutral/tohoku-f01-neutral.htsvoice /usr/share/hts-voice/tohoku-f01/neutral.htsvoice && \
+    rm -rf htsvoice-tohoku-f01.zip htsvoice-tohoku-f01-v1.1.0
 
 # アプリケーションの作業ディレクトリを作成
 WORKDIR /app
