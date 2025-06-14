@@ -7,6 +7,7 @@ FROM node:18-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
     open-jtalk \
     open-jtalk-mecab-naist-jdic \
+    open-jtalk-hts-voice-mei \
     wget \
     unzip \
     && rm -rf /var/lib/apt/lists/*
@@ -14,13 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # /usr/shareディレクトリに移動
 WORKDIR /usr/share
 
-# MMDAgentのサンプルから「メイ」の音声ファイルを直接ダウンロードして配置
-# --no-check-certificate を追加してSSL証明書のエラーを回避
-RUN mkdir -p /usr/share/hts-voice/tohoku-f01 && \
-    wget --no-check-certificate -O htsvoice-tohoku-f01.zip "https://github.com/icn-lab/htsvoice-tohoku-f01/releases/download/v1.1.0/htsvoice-tohoku-f01-v1.1.0.zip" && \
-    unzip htsvoice-tohoku-f01.zip && \
-    mv htsvoice-tohoku-f01-v1.1.0/htsvoice/tohoku-f01-neutral/tohoku-f01-neutral.htsvoice /usr/share/hts-voice/tohoku-f01/neutral.htsvoice && \
-    rm -rf htsvoice-tohoku-f01.zip htsvoice-tohoku-f01-v1.1.0
 
 # アプリケーションの作業ディレクトリを作成
 WORKDIR /app
